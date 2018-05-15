@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  ruby:
+    image: secomm/centos7-ruby
+    command: /bin/bash -l -c "bundle install && ruby app.rb -o 0.0.0.0 -p 80"
+    environment:
+      - VIRTUAL_HOST=test-ruby.secomm.vn
+      - LETSENCRYPT_HOST=test-ruby.secomm.vn
+      - LETSENCRYPT_EMAIL=phuocvu@builtwithdigital.com
+    volumes: 
+      - ./src:/app
+    container_name: 'test-ruby'
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-net
